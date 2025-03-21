@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PaperPlaneIcon, SmileIcon, PaperclipIcon } from "lucide-react";
+import { Send as SendIcon, SmileIcon, PaperclipIcon } from "lucide-react";
 import { useChatContext } from "@/contexts/ChatContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,7 +67,7 @@ const ChatInput = () => {
           className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none"
           aria-label="Send message"
         >
-          <PaperPlaneIcon className="h-5 w-5" />
+          <SendIcon className="h-5 w-5" />
         </Button>
       </div>
     </div>
