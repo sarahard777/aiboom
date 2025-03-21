@@ -9,8 +9,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 // Helper to generate character responses
 const generateCharacterResponse = async (userMessage: string, conversationId: string) => {
+  // Detect language of user message
+  const isArabic = /[\u0600-\u06FF]/.test(userMessage);
+  
   // Questions that characters can ask (beyond the initial response)
-  const followUpQuestions = [
+  const englishFollowUpQuestions = [
     "Have you considered how this perspective might change if viewed through a different historical lens?",
     "Wouldn't it be fascinating to explore how this idea connects to the broader human experience?",
     "Could we perhaps delve deeper into the implications this has for our understanding of ourselves?",
@@ -22,16 +25,43 @@ const generateCharacterResponse = async (userMessage: string, conversationId: st
     "Could there be a pattern here that connects to other great questions of our time?",
     "What would happen if we challenged our fundamental assumptions about this subject?"
   ];
+  
+  const arabicFollowUpQuestions = [
+    "هل فكرت كيف قد تتغير وجهة النظر هذه إذا نظرنا إليها من منظور تاريخي مختلف؟",
+    "أليس من المثير للاهتمام استكشاف كيف ترتبط هذه الفكرة بتجربة الإنسان الأوسع؟",
+    "هل يمكننا التعمق أكثر في الآثار التي تترتب على فهمنا لأنفسنا؟",
+    "هل من الممكن أننا نغفل عنصراً حاسماً قد يغير تفسيرنا تماماً؟",
+    "ماذا لو اقتربنا من هذا السؤال من زاوية مختلفة تماماً؟",
+    "هل تعتقد أن الأجيال القادمة ستنظر إلى هذه المسألة بشكل مختلف عما نفعل اليوم؟",
+    "كيف يمكن أن تؤثر تحيزاتنا الشخصية على تفسيرنا لهذا الموقف؟",
+    "ألا يجب أن نأخذ بعين الاعتبار كيف يشكل السياق الثقافي فهمنا لهذا الموضوع؟",
+    "هل يمكن أن يكون هناك نمط يربط هذا بالأسئلة الكبرى الأخرى في عصرنا؟",
+    "ماذا سيحدث لو تحدينا افتراضاتنا الأساسية حول هذا الموضوع؟"
+  ];
+  
+  // Select the appropriate follow-up questions based on language
+  const followUpQuestions = isArabic ? arabicFollowUpQuestions : englishFollowUpQuestions;
 
   // First character response templates
-  const firstResponseTemplates = [
+  const englishFirstResponseTemplates = [
     "I believe the answer you seek requires thoughtful consideration, wouldn't you agree that understanding comes from multiple perspectives?",
     "Your question is quite intriguing, and I wonder if we might explore it from various angles to arrive at a more complete understanding?",
     "That's a fascinating inquiry which deserves careful analysis - perhaps we should examine the underlying assumptions first?",
     "I've pondered similar questions myself, and I find that the most enriching approach is to consider multiple viewpoints, don't you think?",
     "The answer to your question might not be as straightforward as it seems; have you considered the historical context that shapes our understanding?"
   ];
-
+  
+  const arabicFirstResponseTemplates = [
+    "أعتقد أن الإجابة التي تبحث عنها تتطلب تفكيراً عميقاً، ألا توافق أن الفهم يأتي من وجهات نظر متعددة؟",
+    "سؤالك مثير للاهتمام، وأتساءل ما إذا كان بإمكاننا استكشافه من زوايا مختلفة للوصول إلى فهم أكثر اكتمالاً؟",
+    "هذا استفسار رائع يستحق تحليلاً دقيقاً - ربما يجب أن نفحص الافتراضات الأساسية أولاً؟",
+    "لقد تأملت في أسئلة مشابهة بنفسي، وأجد أن النهج الأكثر إثراءً هو النظر في وجهات نظر متعددة، ألا تعتقد ذلك؟",
+    "قد لا تكون الإجابة على سؤالك بسيطة كما تبدو؛ هل فكرت في السياق التاريخي الذي يشكل فهمنا؟"
+  ];
+  
+  // Select the appropriate first response templates based on language
+  const firstResponseTemplates = isArabic ? arabicFirstResponseTemplates : englishFirstResponseTemplates;
+  
   // Select a random first response
   const randomFirstResponse = firstResponseTemplates[Math.floor(Math.random() * firstResponseTemplates.length)];
   
