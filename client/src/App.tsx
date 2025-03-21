@@ -10,6 +10,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={ChatPage} />
+      {/* Match all routes for deployment - prevent 404 in production */}
+      <Route path="/:rest*" component={ChatPage} />
       <Route component={NotFound} />
     </Switch>
   );
